@@ -1,0 +1,339 @@
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_audio/audio.c userland/host_applications/linux/apps/hello_pi/hello_audio/audio.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_audio/audio.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_audio/audio.c	2016-09-20 10:53:38.234976224 +0800
+@@ -34,7 +34,7 @@
+ #include <unistd.h>
+ #include <semaphore.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ #include "ilclient.h"
+ 
+ #define N_WAVE          1024    /* dimension of Sinewave[] */
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_dispmanx/dispmanx.c userland/host_applications/linux/apps/hello_pi/hello_dispmanx/dispmanx.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_dispmanx/dispmanx.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_dispmanx/dispmanx.c	2016-09-20 10:53:38.235976226 +0800
+@@ -34,7 +34,7 @@
+ #include <unistd.h>
+ #include <sys/time.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ 
+ #define WIDTH   200
+ #define HEIGHT  200
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_encode/encode.c userland/host_applications/linux/apps/hello_pi/hello_encode/encode.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_encode/encode.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_encode/encode.c	2016-09-20 10:53:38.235976226 +0800
+@@ -33,7 +33,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ #include "ilclient.h"
+ 
+ #define NUMFRAMES 300
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_font/main.c userland/host_applications/linux/apps/hello_pi/hello_font/main.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_font/main.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_font/main.c	2016-09-20 10:53:38.236976229 +0800
+@@ -33,7 +33,7 @@
+ #include <assert.h>
+ #include <unistd.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ #include "vgfont.h"
+ 
+ static const char *strnchr(const char *str, size_t len, char c)
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_jpeg/jpeg.h userland/host_applications/linux/apps/hello_pi/hello_jpeg/jpeg.h
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_jpeg/jpeg.h	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_jpeg/jpeg.h	2016-09-20 10:53:38.236976229 +0800
+@@ -40,7 +40,7 @@
+ #include <string.h>
+ #include <errno.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ #include "ilclient.h"
+ 
+ #define OMXJPEG_OK                  0
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_teapot/models.c userland/host_applications/linux/apps/hello_pi/hello_teapot/models.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_teapot/models.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_teapot/models.c	2016-09-20 10:53:38.236976229 +0800
+@@ -29,9 +29,9 @@
+ #include <stdio.h>
+ #include <stdint.h>
+ 
+-#include "GLES/gl.h"
+-#include "EGL/egl.h"
+-#include "EGL/eglext.h"
++#include <GLES/gl.h>
++#include <EGL/egl.h>
++#include <EGL/eglext.h>
+ #include "models.h"
+ 
+ #define VMCS_RESOURCE(a,b) (b)
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_teapot/triangle.c userland/host_applications/linux/apps/hello_pi/hello_teapot/triangle.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_teapot/triangle.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_teapot/triangle.c	2016-09-20 10:53:38.237976231 +0800
+@@ -35,11 +35,11 @@
+ #include <assert.h>
+ #include <unistd.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ 
+-#include "GLES/gl.h"
+-#include "EGL/egl.h"
+-#include "EGL/eglext.h"
++#include <GLES/gl.h>
++#include <EGL/egl.h>
++#include <EGL/eglext.h>
+ 
+ #include "cube_texture_and_coords.h"
+ #include "models.h"
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_teapot/video.c userland/host_applications/linux/apps/hello_pi/hello_teapot/video.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_teapot/video.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_teapot/video.c	2016-09-20 10:53:38.237976231 +0800
+@@ -32,7 +32,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ #include "ilclient.h"
+ 
+ static OMX_BUFFERHEADERTYPE* eglBuffer = NULL;
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_tiger/main.c userland/host_applications/linux/apps/hello_pi/hello_tiger/main.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_tiger/main.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_tiger/main.c	2016-09-20 10:53:38.237976231 +0800
+@@ -41,13 +41,13 @@
+ #define UNREF(X) ((void)(X))
+ 
+ #ifdef HG_FLAT_INCLUDES
+-#	include "openvg.h"
+-#	include "vgu.h"
+-#	include "egl.h"
++#	include <openvg.h>
++#	include <vgu.h>
++#	include <egl.h>
+ #else
+-#	include "VG/openvg.h"
+-#	include "VG/vgu.h"
+-#	include "EGL/egl.h"
++#	include <VG/openvg.h>
++#	include <VG/vgu.h>
++#	include <EGL/egl.h>
+ #endif
+ 
+ #include "tiger.h"
+@@ -479,7 +479,7 @@
+ //TODO
+ 
+ #elif defined __RASPBERRYPI__
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ int main(void)
+ {
+    uint32_t width, height;
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_triangle/triangle.c userland/host_applications/linux/apps/hello_pi/hello_triangle/triangle.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_triangle/triangle.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_triangle/triangle.c	2016-09-20 10:53:38.238976234 +0800
+@@ -34,11 +34,11 @@
+ #include <assert.h>
+ #include <unistd.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ 
+-#include "GLES/gl.h"
+-#include "EGL/egl.h"
+-#include "EGL/eglext.h"
++#include <GLES/gl.h>
++#include <EGL/egl.h>
++#include <EGL/eglext.h>
+ 
+ #include "cube_texture_and_coords.h"
+ 
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_triangle2/triangle2.c userland/host_applications/linux/apps/hello_pi/hello_triangle2/triangle2.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_triangle2/triangle2.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_triangle2/triangle2.c	2016-09-20 10:53:38.238976234 +0800
+@@ -36,11 +36,11 @@
+ #include <assert.h>
+ #include <unistd.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ 
+-#include "GLES2/gl2.h"
+-#include "EGL/egl.h"
+-#include "EGL/eglext.h"
++#include <GLES2/gl2.h>
++#include <EGL/egl.h>
++#include <EGL/eglext.h>
+ 
+ typedef struct
+ {
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_video/video.c userland/host_applications/linux/apps/hello_pi/hello_video/video.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_video/video.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_video/video.c	2016-09-20 10:53:38.239976236 +0800
+@@ -31,7 +31,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ #include "ilclient.h"
+ 
+ static int video_decode_test(char *filename)
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_videocube/triangle.c userland/host_applications/linux/apps/hello_pi/hello_videocube/triangle.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_videocube/triangle.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_videocube/triangle.c	2016-09-20 10:53:38.239976236 +0800
+@@ -35,11 +35,11 @@
+ #include <assert.h>
+ #include <unistd.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ 
+-#include "GLES/gl.h"
+-#include "EGL/egl.h"
+-#include "EGL/eglext.h"
++#include <GLES/gl.h>
++#include <EGL/egl.h>
++#include <EGL/eglext.h>
+ 
+ #include "cube_texture_and_coords.h"
+ 
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/hello_videocube/video.c userland/host_applications/linux/apps/hello_pi/hello_videocube/video.c
+--- userland.orig/host_applications/linux/apps/hello_pi/hello_videocube/video.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/hello_videocube/video.c	2016-09-20 10:53:38.239976236 +0800
+@@ -32,7 +32,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ #include "ilclient.h"
+ 
+ static OMX_BUFFERHEADERTYPE* eglBuffer = NULL;
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/libs/ilclient/ilclient.c userland/host_applications/linux/apps/hello_pi/libs/ilclient/ilclient.c
+--- userland.orig/host_applications/linux/apps/hello_pi/libs/ilclient/ilclient.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/libs/ilclient/ilclient.c	2016-09-20 10:53:38.240976238 +0800
+@@ -47,11 +47,11 @@
+ #include <ctype.h>
+ #include <assert.h>
+ 
+-#include "interface/vcos/vcos.h"
+-#include "interface/vcos/vcos_logging.h"
+-#include "interface/vmcs_host/vchost.h"
++#include <interface/vcos/vcos.h>
++#include <interface/vcos/vcos_logging.h>
++#include <interface/vmcs_host/vchost.h>
+ 
+-#include "IL/OMX_Broadcom.h"
++#include <IL/OMX_Broadcom.h>
+ #include "ilclient.h"
+ 
+ #define VCOS_LOG_CATEGORY (&ilclient_log_category)
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/libs/ilclient/ilclient.h userland/host_applications/linux/apps/hello_pi/libs/ilclient/ilclient.h
+--- userland.orig/host_applications/linux/apps/hello_pi/libs/ilclient/ilclient.h	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/libs/ilclient/ilclient.h	2016-09-20 10:53:38.240976238 +0800
+@@ -43,8 +43,8 @@
+ #ifndef _IL_CLIENT_H
+ #define _IL_CLIENT_H
+ 
+-#include "IL/OMX_Broadcom.h"
+-#include "interface/vcos/vcos.h"
++#include <IL/OMX_Broadcom.h>
++#include <interface/vcos/vcos.h>
+ 
+ /**
+  * The <DFN>ILCLIENT_T</DFN> structure encapsulates the state needed for the IL
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/libs/ilclient/ilcore.c userland/host_applications/linux/apps/hello_pi/libs/ilclient/ilcore.c
+--- userland.orig/host_applications/linux/apps/hello_pi/libs/ilclient/ilcore.c	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/libs/ilclient/ilcore.c	2016-09-20 10:53:38.241976240 +0800
+@@ -40,12 +40,12 @@
+ #include <stdlib.h>
+ #include <string.h>
+ 
+-#include "IL/OMX_Component.h"
+-#include "interface/vcos/vcos.h"
++#include <IL/OMX_Component.h>
++#include <interface/vcos/vcos.h>
+ 
+-#include "interface/vmcs_host/vcilcs.h"
+-#include "interface/vmcs_host/vchost.h"
+-#include "interface/vmcs_host/vcilcs_common.h"
++#include <interface/vmcs_host/vcilcs.h>
++#include <interface/vmcs_host/vchost.h>
++#include <interface/vmcs_host/vcilcs_common.h>
+ 
+ static int coreInit = 0;
+ static int nActiveHandles = 0;
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/libs/vgfont/graphics_x_private.h userland/host_applications/linux/apps/hello_pi/libs/vgfont/graphics_x_private.h
+--- userland.orig/host_applications/linux/apps/hello_pi/libs/vgfont/graphics_x_private.h	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/libs/vgfont/graphics_x_private.h	2016-09-20 10:53:38.241976240 +0800
+@@ -32,13 +32,13 @@
+ 
+ #define VCOS_LOG_CATEGORY (&gx_log_cat)
+ 
+-#include "EGL/egl.h"
+-#include "EGL/eglext.h"
+-#include "VG/openvg.h"
+-#include "VG/vgu.h"
++#include <EGL/egl.h>
++#include <EGL/eglext.h>
++#include <VG/openvg.h>
++#include <VG/vgu.h>
+ 
+ #include "vgfont.h"
+-#include "bcm_host.h"
++#include <bcm_host.h>
+ 
+ extern VCOS_LOG_CAT_T gx_log_cat;
+ 
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/libs/vgfont/vgfont.h userland/host_applications/linux/apps/hello_pi/libs/vgfont/vgfont.h
+--- userland.orig/host_applications/linux/apps/hello_pi/libs/vgfont/vgfont.h	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/libs/vgfont/vgfont.h	2016-09-20 10:53:38.241976240 +0800
+@@ -31,9 +31,9 @@
+ #define VCFTLIB_H
+ 
+ #include <stdint.h>
+-#include "interface/vmcs_host/vc_dispservice_x_defs.h"
+-#include "interface/vctypes/vc_image_types.h"
+-#include "interface/vcos/vcos.h"
++#include <interface/vmcs_host/vc_dispservice_x_defs.h>
++#include <interface/vctypes/vc_image_types.h>
++#include <interface/vcos/vcos.h>
+ 
+ //Definitions which in certain functions can be used to mean the actual width and height of a resource, without
+ //having to know the data implicitly.
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/libs/vgfont/vgft.h userland/host_applications/linux/apps/hello_pi/libs/vgfont/vgft.h
+--- userland.orig/host_applications/linux/apps/hello_pi/libs/vgfont/vgft.h	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/libs/vgfont/vgft.h	2016-09-20 10:53:38.242976243 +0800
+@@ -30,7 +30,7 @@
+ #ifndef VGFT_H
+ #define VGFT_H
+ 
+-#include "interface/vcos/vcos.h"
++#include <interface/vcos/vcos.h>
+ #include <VG/openvg.h>
+ #include <ft2build.h>
+ 
+diff -U 3 -dHrN -- userland.orig/host_applications/linux/apps/hello_pi/Makefile.include userland/host_applications/linux/apps/hello_pi/Makefile.include
+--- userland.orig/host_applications/linux/apps/hello_pi/Makefile.include	2016-09-15 04:26:03.000000000 +0800
++++ userland/host_applications/linux/apps/hello_pi/Makefile.include	2016-09-20 10:53:38.242976243 +0800
+@@ -1,9 +1,9 @@
+ 
+ CFLAGS+=-DSTANDALONE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -DTARGET_POSIX -D_LINUX -fPIC -DPIC -D_REENTRANT -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -U_FORTIFY_SOURCE -Wall -g -DHAVE_LIBOPENMAX=2 -DOMX -DOMX_SKIP64BIT -ftree-vectorize -pipe -DUSE_EXTERNAL_OMX -DHAVE_LIBBCM_HOST -DUSE_EXTERNAL_LIBBCM_HOST -DUSE_VCHIQ_ARM -Wno-psabi
+ 
+-LDFLAGS+=-L$(SDKSTAGE)/opt/vc/lib/ -lbrcmGLESv2 -lbrcmEGL -lopenmaxil -lbcm_host -lvcos -lvchiq_arm -lpthread -lrt -lm -L$(SDKSTAGE)/opt/vc/src/hello_pi/libs/ilclient -L$(SDKSTAGE)/opt/vc/src/hello_pi/libs/vgfont
++LDFLAGS+=-L$(SDKSTAGE)/usr/lib/vc -lbrcmGLESv2 -lbrcmEGL -lopenmaxil -lbcm_host -lvcos -lvchiq_arm -lpthread -lrt -lm -L../libs/ilclient -L../libs/vgfont
+ 
+-INCLUDES+=-I$(SDKSTAGE)/opt/vc/include/ -I$(SDKSTAGE)/opt/vc/include/interface/vcos/pthreads -I$(SDKSTAGE)/opt/vc/include/interface/vmcs_host/linux -I./ -I$(SDKSTAGE)/opt/vc/src/hello_pi/libs/ilclient -I$(SDKSTAGE)/opt/vc/src/hello_pi/libs/vgfont
++INCLUDES+=-I$(SDKSTAGE)/usr/include/vc -I$(SDKSTAGE)/usr/include/vc/interface/vcos/pthreads -I$(SDKSTAGE)/usr/include/vc/interface/vmcs_host/linux -I./ -I../libs/ilclient -I../libs/vgfont
+ 
+ all: $(BIN) $(LIB)
+ 
