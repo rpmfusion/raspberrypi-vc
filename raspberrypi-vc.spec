@@ -3,7 +3,7 @@
 
 Name:       raspberrypi-vc
 Version:    20190415
-Release:    1.git%{commit_short}%{?dist}
+Release:    2.git%{commit_short}%{?dist}
 Summary:    VideoCore GPU libraries, utilities and demos for Raspberry Pi
 License:    BSD
 URL:        https://github.com/raspberrypi
@@ -266,6 +266,9 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 
 
 %changelog
+* Mon May 06 2019 Leigh Scott <leigh123linux@gmail.com> - 20190415-2.gitff2bd45
+- Rebuild to fix rpi release tag
+
 * Mon Apr 29 2019 Andrew Bauer <zonexpertconsulting@outlook.com> - 20190415-1.gitd574b51
 - update package to April 15 commit ff2bd45
 
