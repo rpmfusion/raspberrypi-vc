@@ -13,7 +13,7 @@ Source2:    10-vchiq.rules
 # Patch0 fixes up paths for relocation from /opt to system directories.
 # Needs rebase or dropped
 #Patch0:     raspberrypi-vc-demo-source-path-fixup.patch
-ExclusiveArch:  armv7hl
+ExclusiveArch:  armv7hl aarch64
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -81,6 +81,9 @@ Raspberry Pi.
 # Must set BUILD_SHARED_LIBS=OFF and BUILD_STATIC_LIBS=ON
 # See for details: https://github.com/raspberrypi/userland/pull/333
 %cmake \
+%ifarch aarch64
+        -DARM64:BOOL=ON \
+%endif
         -DCMAKE_BUILD_TYPE=Release \
         -DVMCS_INSTALL_PREFIX=%{_prefix} \
         -DBUILD_SHARED_LIBS:BOOL=OFF \
@@ -219,7 +222,6 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 %{_libdir}/vc/libdebug_sym_static.a
 %{_libdir}/vc/libkhrn_client.a
 %{_libdir}/vc/libkhrn_static.a
-%{_libdir}/vc/libvcfiled_check.a
 %{_libdir}/vc/libvchostif.a
 %{_libdir}/vc/libvcilcs.a
 
