@@ -253,7 +253,7 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 %{_bindir}/vchiq_test
 %{_bindir}/vcmailbox
 %{_bindir}/vcsmem
-%{_sbindir}/vcfiled
+#{_sbindir}/vcfiled
 
 
 %files demo-source
