@@ -83,7 +83,6 @@ Raspberry Pi.
 %cmake \
         -DCMAKE_BUILD_TYPE=Release \
         -DVMCS_INSTALL_PREFIX=%{_prefix} \
-        -DCMAKE_C_FLAGS=%{optflags} \
         -DBUILD_SHARED_LIBS:BOOL=OFF \
         -DBUILD_STATIC_LIBS:BOOL=ON \
 
