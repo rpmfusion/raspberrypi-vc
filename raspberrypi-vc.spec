@@ -1,6 +1,8 @@
 %global commit0     3e59217bd93b8024fb8fc1c6530b00cbae64bc73
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
+%global __cmake_in_source_build 1
+
 Name:       raspberrypi-vc
 Version:    20200727
 Release:    1.git%{shortcommit0}%{?dist}
