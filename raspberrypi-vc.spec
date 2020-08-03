@@ -1,8 +1,6 @@
 %global commit0     3e59217bd93b8024fb8fc1c6530b00cbae64bc73
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global __cmake_in_source_build 1
-
 Name:       raspberrypi-vc
 Version:    20200727
 Release:    1.git%{shortcommit0}%{?dist}
@@ -80,8 +78,6 @@ Raspberry Pi.
 
 
 %build
-mkdir build
-pushd build
 # Must set BUILD_SHARED_LIBS=OFF and BUILD_STATIC_LIBS=ON
 # See for details: https://github.com/raspberrypi/userland/pull/333
 %cmake \
@@ -90,15 +86,13 @@ pushd build
         -DCMAKE_C_FLAGS=%{optflags} \
         -DBUILD_SHARED_LIBS:BOOL=OFF \
         -DBUILD_STATIC_LIBS:BOOL=ON \
-        ..
-%make_build
-popd
+
+
+%cmake_build
 
 
 %install
-pushd build
-%make_install
-popd
+%cmake_install
 
 #RPM Macros support
 mkdir -p %{buildroot}%{rpmmacrodir}
