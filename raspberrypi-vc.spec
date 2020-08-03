@@ -1,17 +1,18 @@
-%global commit_long     ff2bd4552145e8dc190276d8fbdbadc7e8e0da78
-%global commit_short    %(c=%{commit_long}; echo ${c:0:7})
+%global commit0     3e59217bd93b8024fb8fc1c6530b00cbae64bc73
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 Name:       raspberrypi-vc
-Version:    20190415
-Release:    2.git%{commit_short}%{?dist}
+Version:    20200727
+Release:    1.git%{shortcommit0}%{?dist}
 Summary:    VideoCore GPU libraries, utilities and demos for Raspberry Pi
 License:    BSD
 URL:        https://github.com/raspberrypi
-Source0:    %{url}/userland/archive/%{commit_long}.tar.gz#/raspberrypi-userland-%{commit_short}.tar.gz
+Source0:    %{url}/userland/archive/%{commit0}/raspberrypi-userland-%{shortcommit0}.tar.gz
 Source1:    raspberrypi-vc-libs.conf
 Source2:    10-vchiq.rules
 # Patch0 fixes up paths for relocation from /opt to system directories.
-Patch0:     raspberrypi-vc-demo-source-path-fixup.patch
+# Needs rebase or dropped
+#Patch0:     raspberrypi-vc-demo-source-path-fixup.patch
 ExclusiveArch:  armv7hl
 
 BuildRequires:  cmake
@@ -73,7 +74,7 @@ Raspberry Pi.
 
 
 %prep
-%autosetup -p1 -n userland-%{commit_long}
+%autosetup -p1 -n userland-%{commit0}
 
 
 %build
@@ -266,6 +267,9 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 
 
 %changelog
+* Mon Aug 03 2020 Nicolas Chauvet <kwizart@gmail.com> - 20200727-1.git3e59217
+- Update snapshot
+
 * Mon May 06 2019 Leigh Scott <leigh123linux@gmail.com> - 20190415-2.gitff2bd45
 - Rebuild to fix rpi release tag
 
