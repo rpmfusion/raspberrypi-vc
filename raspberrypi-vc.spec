@@ -1,18 +1,23 @@
-%global commit0     3e59217bd93b8024fb8fc1c6530b00cbae64bc73
+%global commit0     f73fca015d421b763936667a0b58fe5024d59921
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
+%global ldconfig_file %{_sysconfdir}/ld.so.conf.d/raspberrypi-vc-libs.conf
+
 Name:       raspberrypi-vc
-Version:    20200727
+Version:    20200813
 Release:    1.git%{shortcommit0}%{?dist}
 Summary:    VideoCore GPU libraries, utilities and demos for Raspberry Pi
 License:    BSD
 URL:        https://github.com/raspberrypi
 Source0:    %{url}/userland/archive/%{commit0}/raspberrypi-userland-%{shortcommit0}.tar.gz
-Source1:    raspberrypi-vc-libs.conf
 Source2:    10-vchiq.rules
 # Patch0 fixes up paths for relocation from /opt to system directories.
 # Needs rebase or dropped
 #Patch0:     raspberrypi-vc-demo-source-path-fixup.patch
+
+# Install libraries as per GNU Coding Standards
+# Upstream reference: https://github.com/raspberrypi/userland/pull/650
+Patch0:     https://patch-diff.githubusercontent.com/raw/raspberrypi/userland/pull/650.patch#/%{name}-Install-libraries-as-per-GNU-Coding-Standards.patch
 ExclusiveArch:  armv7hl aarch64
 
 BuildRequires:  cmake
@@ -88,7 +93,7 @@ Raspberry Pi.
         -DVMCS_INSTALL_PREFIX=%{_prefix} \
         -DBUILD_SHARED_LIBS:BOOL=OFF \
         -DBUILD_STATIC_LIBS:BOOL=ON \
-
+        -DLIBDIR="%{_lib}/vc" \
 
 %cmake_build
 
@@ -106,9 +111,9 @@ EOF
 touch -r LICENCE %{buildroot}%{rpmmacrodir}/macros.%{name}
 
 ### libs
-mkdir -p %{buildroot}/%{_libdir}/vc
-mv %{buildroot}/%{_libdir}/{*.so,*.a} %{buildroot}/%{_libdir}/vc
+%ifarch armv7hl
 mv %{buildroot}/%{_libdir}/plugins %{buildroot}/%{_libdir}/vc
+%endif
 
 ### pkgconfig
 mv %{buildroot}/%{_libdir}/pkgconfig %{buildroot}/%{_libdir}/vc
@@ -138,8 +143,8 @@ rm -rf %{buildroot}%{_prefix}%{_sysconfdir}/init.d
 rm -rf %{buildroot}%{_datadir}/install
 
 ### install ldconfig conf
-mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-install -D -p -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/ld.so.conf.d/
+mkdir -p %{buildroot}$(dirname %{ldconfig_file})
+echo "%{_libdir}/vc" >%{buildroot}%{ldconfig_file}
 
 ### install udev rules
 mkdir -p %{buildroot}%{_udevrulesdir}
@@ -159,28 +164,29 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 %dir %{_libdir}/vc
 %dir /opt/vc
 /opt/vc/lib
-%config(noreplace) %{_sysconfdir}/ld.so.conf.d/raspberrypi-vc-libs.conf
+%config(noreplace) %{ldconfig_file}
 %{_udevrulesdir}/10-vchiq.rules
+%{_libdir}/vc/libbcm_host.so
+%{_libdir}/vc/libdebug_sym.so
+%{_libdir}/vc/libdtovl.so
+%{_libdir}/vc/libvchiq_arm.so
+%{_libdir}/vc/libvcos.so
+%ifarch armv7hl
 %{_libdir}/vc/libEGL.so
 %{_libdir}/vc/libGLESv2.so
 %{_libdir}/vc/libOpenVG.so
 %{_libdir}/vc/libWFC.so
-%{_libdir}/vc/libbcm_host.so
 %{_libdir}/vc/libbrcmEGL.so
 %{_libdir}/vc/libbrcmGLESv2.so
 %{_libdir}/vc/libbrcmOpenVG.so
 %{_libdir}/vc/libbrcmWFC.so
 %{_libdir}/vc/libcontainers.so
-%{_libdir}/vc/libdebug_sym.so
-%{_libdir}/vc/libdtovl.so
 %{_libdir}/vc/libmmal.so
 %{_libdir}/vc/libmmal_components.so
 %{_libdir}/vc/libmmal_core.so
 %{_libdir}/vc/libmmal_util.so
 %{_libdir}/vc/libmmal_vc_client.so
 %{_libdir}/vc/libopenmaxil.so
-%{_libdir}/vc/libvchiq_arm.so
-%{_libdir}/vc/libvcos.so
 %{_libdir}/vc/libvcsm.so
 %{_libdir}/vc/plugins/reader_asf.so
 %{_libdir}/vc/plugins/reader_avi.so
@@ -206,7 +212,7 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 %{_libdir}/vc/plugins/writer_mp4.so
 %{_libdir}/vc/plugins/writer_raw_video.so
 %{_libdir}/vc/plugins/writer_simple.so
-
+%endif
 
 %files devel
 %{rpmmacrodir}/macros.%{name}
@@ -217,17 +223,20 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 
 
 %files static
+%ifarch armv7hl
 %{_libdir}/vc/libEGL_static.a
 %{_libdir}/vc/libGLESv2_static.a
-%{_libdir}/vc/libdebug_sym_static.a
 %{_libdir}/vc/libkhrn_client.a
 %{_libdir}/vc/libkhrn_static.a
-%{_libdir}/vc/libvchostif.a
 %{_libdir}/vc/libvcilcs.a
+%endif
+%{_libdir}/vc/libdebug_sym_static.a
+%{_libdir}/vc/libvchostif.a
 
 
 
 %files utils
+%ifarch armv7hl
 %{_bindir}/containers_check_frame_int
 %{_bindir}/containers_datagram_receiver
 %{_bindir}/containers_datagram_sender
@@ -239,22 +248,22 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 %{_bindir}/containers_test_bits
 %{_bindir}/containers_test_uri
 %{_bindir}/containers_uri_pipe
-%{_bindir}/dtmerge
-%{_bindir}/dtoverlay
-%{_bindir}/dtoverlay-post
-%{_bindir}/dtoverlay-pre
-%{_bindir}/dtparam
 %{_bindir}/mmal_vc_diag
 %{_bindir}/raspistill
 %{_bindir}/raspivid
 %{_bindir}/raspividyuv
 %{_bindir}/raspiyuv
+%{_bindir}/vcsmem
+%endif
+%{_bindir}/dtmerge
+%{_bindir}/dtoverlay
+%{_bindir}/dtoverlay-post
+%{_bindir}/dtoverlay-pre
+%{_bindir}/dtparam
 %{_bindir}/tvservice
 %{_bindir}/vcgencmd
 %{_bindir}/vchiq_test
 %{_bindir}/vcmailbox
-%{_bindir}/vcsmem
-#{_sbindir}/vcfiled
 
 
 %files demo-source
@@ -264,6 +273,11 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 
 
 %changelog
+* Mon Sep 14 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 20200813-1.gitf73fca0
+- Update snapshot
+- Fix build error on aarch64
+- Generate raspberrypi-vc-libs.conf on the fly
+
 * Mon Aug 03 2020 Nicolas Chauvet <kwizart@gmail.com> - 20200727-1.git3e59217
 - Update snapshot
 
