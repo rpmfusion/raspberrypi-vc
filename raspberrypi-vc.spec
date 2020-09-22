@@ -1,11 +1,11 @@
 %global commit0     f73fca015d421b763936667a0b58fe5024d59921
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global ldconfig_file %{_sysconfdir}/ld.so.conf.d/raspberrypi-vc-libs.conf
+%global     _vc_libdir  %{_libdir}/vc
 
 Name:       raspberrypi-vc
 Version:    20200813
-Release:    1.git%{shortcommit0}%{?dist}
+Release:    2.git%{shortcommit0}%{?dist}
 Summary:    VideoCore GPU libraries, utilities and demos for Raspberry Pi
 License:    BSD
 URL:        https://github.com/raspberrypi
@@ -143,8 +143,8 @@ rm -rf %{buildroot}%{_prefix}%{_sysconfdir}/init.d
 rm -rf %{buildroot}%{_datadir}/install
 
 ### install ldconfig conf
-mkdir -p %{buildroot}$(dirname %{ldconfig_file})
-echo "%{_libdir}/vc" >%{buildroot}%{ldconfig_file}
+install -m 0755 -d    %{buildroot}%{_sysconfdir}/ld.so.conf.d/
+echo "%{_vc_libdir}" >%{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_lib}.conf
 
 ### install udev rules
 mkdir -p %{buildroot}%{_udevrulesdir}
@@ -164,7 +164,7 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 %dir %{_libdir}/vc
 %dir /opt/vc
 /opt/vc/lib
-%config(noreplace) %{ldconfig_file}
+%config %{_sysconfdir}/ld.so.conf.d/%{name}-%{_lib}.conf
 %{_udevrulesdir}/10-vchiq.rules
 %{_libdir}/vc/libbcm_host.so
 %{_libdir}/vc/libdebug_sym.so
@@ -273,6 +273,9 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 
 
 %changelog
+* Tue Sep 22 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 20200813-2.gitf73fca0
+- Change installation of ld.conf.d drop-in configuration file
+
 * Mon Sep 14 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 20200813-1.gitf73fca0
 - Update snapshot
 - Fix build error on aarch64
