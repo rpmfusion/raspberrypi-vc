@@ -53,7 +53,8 @@ Header files for accessing the BCM283x VideoCore GPU on the Raspberry Pi.
 
 %package demo-source
 Summary:    Demo source for accessing the Raspberry Pi GPU
-Requires:   %{name}-libs%{?_isa} = %{version}
+# Not to use %%{?_isa} on noarch package
+Requires:   %{name}-libs = %{version}
 License:    ASL 2.0
 BuildArch:  noarch
 
