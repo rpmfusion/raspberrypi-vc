@@ -1,11 +1,11 @@
-%global commit0     f73fca015d421b763936667a0b58fe5024d59921
+%global commit0     093b30bbc2fd083d68cc3ee07e6e555c6e592d11
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global     _vc_libdir  %{_libdir}/vc
 
 Name:       raspberrypi-vc
-Version:    20200813
-Release:    2.git%{shortcommit0}%{?dist}
+Version:    20201130
+Release:    1.git%{shortcommit0}%{?dist}
 Summary:    VideoCore GPU libraries, utilities and demos for Raspberry Pi
 License:    BSD
 URL:        https://github.com/raspberrypi
@@ -274,6 +274,9 @@ ln -s %{_includedir}/vc %{buildroot}/opt/vc/include
 
 
 %changelog
+* Tue Dec 29 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 20201130-0.git093b30b
+- Update snapshot
+
 * Tue Sep 22 2020 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 20200813-2.gitf73fca0
 - Change installation of ld.conf.d drop-in configuration file
 
